@@ -9,20 +9,6 @@
 
 *A flash loan protocol based on [Aave](https://aave.com/) and [Compound](https://compound.finance/).*
 
-You can learn more about how [Aave works](https://www.youtube.com/watch?v=dTCwssZ116A) at a high level from [this video](https://www.youtube.com/watch?v=dTCwssZ116A).
-
-
-- [Thunder Loan](#thunder-loan)
-- [About](#about)
-- [Getting Started](#getting-started)
-  - [Requirements](#requirements)
-  - [Quickstart](#quickstart)
-- [Usage](#usage)
-  - [Testing](#testing)
-    - [Test Coverage](#test-coverage)
-- [Audit Scope Details](#audit-scope-details)
-  - [Roles](#roles)
-  - [Known Issues](#known-issues)
 
 # About 
 
@@ -43,12 +29,6 @@ We are planning to upgrade from the current `ThunderLoan` contract to the `Thund
 
 # Getting Started
 
-## Requirements
-
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
-- [foundry](https://getfoundry.sh/)
-  - You'll know you did it right if you can run `forge --version` and you see a response like `forge 0.2.0 (816e00b 2023-03-16T00:05:26.396218Z)`
 
 ## Quickstart
 
