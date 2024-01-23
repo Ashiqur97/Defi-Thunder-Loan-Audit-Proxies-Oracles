@@ -141,7 +141,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
         __Ownable_init(msg.sender);
         __UUPSUpgradeable_init();
         __Oracle_init(tswapAddress);
-        s_feePrecision = 1e18;
+        s_feePrecision = 1e18; // @written in aderyn
         s_flashLoanFee = 3e15; // 0.3% ETH fee
     }
 
@@ -266,6 +266,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
         if (newFee > s_feePrecision) {
             revert ThunderLoan__BadNewFee();
         }
+        //@audit-low must emit an event!
         s_flashLoanFee = newFee;
     }
 
