@@ -18,6 +18,9 @@ contract AssetToken is ERC20 {
     IERC20 private immutable i_underlying;
     address private immutable i_thunderLoan;
 
+    // e underlying == USDC
+    // e assetToken == shares
+
     // The underlying per asset exchange rate
     // ie: s_exchangeRate = 2
     // means 1 asset token is worth 2 underlying tokens
