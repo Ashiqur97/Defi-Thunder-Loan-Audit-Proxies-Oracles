@@ -93,8 +93,10 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
                             STATE VARIABLES
     //////////////////////////////////////////////////////////////*/
     mapping(IERC20 => AssetToken) public s_tokenToAssetToken;
+    // e USDC -> USDCAssetToken 
 
     // The fee in WEI, it should have 18 decimals. Each flash loan takes a flat fee of the token price.
+    //@audit-info this should be constant or immutable 
     uint256 private s_feePrecision;
     uint256 private s_flashLoanFee; // 0.3% ETH fee
 
@@ -142,7 +144,7 @@ contract ThunderLoan is Initializable, OwnableUpgradeable, UUPSUpgradeable, Orac
     function initialize(address tswapAddress) external initializer {
         __Ownable_init(msg.sender);
         __UUPSUpgradeable_init();
-        __Oracle_init(tswapAddress);
+        __Oracle_init(tswapAddress); // using tswap as some kind of oracle perhaps
         s_feePrecision = 1e18; // @written in aderyn
         s_flashLoanFee = 3e15; // 0.3% ETH fee
     }
