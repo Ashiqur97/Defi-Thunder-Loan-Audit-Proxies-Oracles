@@ -103,12 +103,19 @@ contract ThunderLoanTest is BaseTest {
 
     function testOracleManipulation() public {
         // 1. Set Contracts!
-        thunderLoan = new ThunderLoad();
+        thunderLoan = new ThunderLoan();
         tokenA = new ERC20Mock();
         proxy = new ERC1967Proxy(address(thunderLoan),"");
         BuffMockPoolFactory pf = new BuffMockPoolFactory(address(weth));
+        // Create a Tswap Dex between WETH / TokenA
         address tswapPool = pf.createPool(address(tokenA));
         thunderLoan = ThunderLoan(address(proxy));
         thunderLoan.initialize(address(pf));
+
+        // 2. Fund TSwap
+        // 3. Fund ThunderLoan
+        // 4. We are going to take out 2 flash loan
+        // a. To nuke the price of the Weth/tokenA on TSwap
+        // b. To show that doing so greatly reduces the fees we pay on ThunderLoan
     }
 }
