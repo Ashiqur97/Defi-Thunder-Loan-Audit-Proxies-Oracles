@@ -99,6 +99,16 @@ contract ThunderLoanTest is BaseTest {
         uint256 amountToRedeem = type(uint256).max;
         vm.startPrank(liquidityProvider);
         thunderLoan.redeem(tokenA, amountToRedeem);
+    }
 
+    function testOracleManipulation() public {
+        // 1. Set Contracts!
+        thunderLoan = new ThunderLoad();
+        tokenA = new ERC20Mock();
+        proxy = new ERC1967Proxy(address(thunderLoan),"");
+        BuffMockPoolFactory pf = new BuffMockPoolFactory(address(weth));
+        address tswapPool = pf.createPool(address(tokenA));
+        thunderLoan = ThunderLoan(address(proxy));
+        thunderLoan.initialize(address(pf));
     }
 }
