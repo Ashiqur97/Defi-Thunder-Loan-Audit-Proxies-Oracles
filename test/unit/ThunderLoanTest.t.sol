@@ -113,9 +113,51 @@ contract ThunderLoanTest is BaseTest {
         thunderLoan.initialize(address(pf));
 
         // 2. Fund TSwap
+        vm.startPrank(liquidityProvider);
+        tokenA.mint(liquidityProvider, 100e18);
+        tokenA.approve(address(tswapPool), 100e18);
+        weth.mint(liquidityProvider, 100e18);
+        weth.approve(address(tswapPool), 100e18);
+        BuffMockTSwap(tswapPool).deposit(100e18,100e18,100e18,block.timestamp);
         // 3. Fund ThunderLoan
+        vm.prank(thunderLoan.owner());
+        thunderLoan.setAllowedToken(tokenA, true);
+        vm.startPrank(liquidityProvider);
+        tokenA.mint(liquidityProvider, 1000e18);
+        tokenA.approve(address(thunderLoan), 1000e18);
+        vm.stopPrank();
+
+
+        uint256 normalFeeCost = thunderLoan.getCalculatedFee(tokenA, 100e18);
+        console2.log("Normal Fee Cost: ", normalFeeCost);
+
+        uint256 amountToBorrow = 50e18;
         // 4. We are going to take out 2 flash loan
         // a. To nuke the price of the Weth/tokenA on TSwap
         // b. To show that doing so greatly reduces the fees we pay on ThunderLoan
     }
+}
+
+contract MaliciousFlashLoanReceiver is IFlashLoanReceiver {
+    ThunderLoan thunderLoan;
+    address repayAddress;
+    BuffMockTSwap tswap;
+
+    constructor(address _tswapPool, address _thunderLoan,address _repayAddress) {
+        tswap = BuffMockTSwap(_tswapPool);
+        thunderLoan = ThunderLoan(_thunderLoan);
+        repayAddress = _repayAddress;
+    }
+
+    function executeOperation(
+        address token,
+        uint256 amount,
+        uint256 fee,
+        address initiator,
+        bytes calldata params
+    )
+
+    external 
+    returns (bool)
+    {}
 }
